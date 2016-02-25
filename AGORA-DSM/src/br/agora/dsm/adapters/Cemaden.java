@@ -38,14 +38,6 @@ public class Cemaden extends HttpServlet {
 		}.start();
 		
 	}
-	
-	/*public static void main(String[] args) throws Exception {
-		
-		System.out.println("init");
-		
-		CemadenAdapter();
-		
-	}*/
 
 	public static void CemadenAdapter() throws Exception {
 

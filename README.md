@@ -2,9 +2,9 @@
 
 AGORA-DSM is a service-oriented middleware for dynamic, real-time management of heterogeneous geosensors in flood management. The approach is called AGORA - Dynamic Sensor Management (AGORA-DSM) and can be seen as an extension of <a href="http://52north.org/communities/sensorweb/incubation/sensorBus/">Sensor Bus</a>. 
 
-## Build Instructions
+## Pre-requisites:
 
-### Prerequisites:
+Follow its respectives guides to complete the installation:
 
 - <a href="http://git-scm.com/">Git</a>.
 
@@ -16,11 +16,17 @@ AGORA-DSM is a service-oriented middleware for dynamic, real-time management of 
 
 - <a href="http://www.postgresql.org/">PostgreSQL</a>.
 
-### Setting Eclipse project
+- <a href="http://52north.org/communities/sensorweb/sos/">SOS</a>.
 
-### Creating the database
+## Build Instructions
 
-### Running the middleware
+- Clone the project: <code>git clone https://github.com/agora-research-group/AGORA-DSM</code>.
+
+- Open Eclipse, go to File - New Project and choose Java Project Options. Uncheck 'Use default location' and insert the location of the git project.
+
+- Export the Java project into a .war file (need to install Maven Integration for Eclipse) inside the webapps folder of the Apache Tomcat.
+
+- After starting the Tomcat Apache, sensor data from <a href="http://www.cemaden.gov.br/">CEMADEN</a>, <a href="https://www.pegelonline.wsv.de/gast/start">PEGELONLINE</a> and configured wireless sensor networks adapters are stored in the SOS repository using SOS services.
 
 ## Reporting Bugs
 
