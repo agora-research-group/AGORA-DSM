@@ -32,4 +32,4 @@ Follow its respectives guides to complete the installation:
 
 Any problem should be reported to group-agora@googlegroups.com.
 
-For more information on AGORA-DSM, please, visit its main web page at: http://www.agora.icmc.usp.br/site/.
+For more information on AGORA-DSM, please, visit its main web page at: http://www.agora.icmc.usp.br/site/, or read the following reference: <a href="http://www.agora.icmc.usp.br/site/wp-content/uploads/2016/02/dissertacao_luiz.pdf">PDF</a>.
