@@ -24,6 +24,18 @@ Follow its respectives guides to complete the installation:
 
 - Open Eclipse, go to File - New Project and choose Java Project Options. Uncheck 'Use default location' and insert the location of the git project.
 
+
+
+<b>NOTE:</b> Common class contains the path specification for folders, files and services. The following variable paths need to be updated. 
+
+<ol>
+  <li><b><i>SERVER_PATH</i></b> is the path for keeping files such as <i>SensorML</i>, <i>describeSensor.json</i>, <i>insertObservation.json</i>, <i>getObservation.json</i>, <i>updateSensor.json</i>;</li>
+  <li><b><i>SOS_PATH</i></b> is the path for requesting data from the SOS repository;</li>
+  <li><b><i>SOS_52n_VERSION</i></b> is the version of the SOS service used;</li>
+  <li><b><i>IMAGES_PATH</i></b> is the path where observations images are stored;</li>
+  <li><b><i>Tracking File</i></b> are the files to help tracking performance from the required activities.</li>
+</ol>
+
 - Export the Java project into a .war file (need to install Maven Integration for Eclipse) inside the webapps folder of the Apache Tomcat.
 
 - After starting the Tomcat Apache, sensor data from <a href="http://www.cemaden.gov.br/">CEMADEN</a>, <a href="https://www.pegelonline.wsv.de/gast/start">PEGELONLINE</a> and configured wireless sensor networks adapters are stored in the SOS repository using SOS services.
