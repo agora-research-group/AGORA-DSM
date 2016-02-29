@@ -54,7 +54,7 @@ public class Common
 	/**
 	 * 
 	 */
-	public final static String SERVER_PATH = "/home/suporte/AGORA-DSM/";
+	public final static String SERVER_PATH = "/docs/";
 	
 	public final static String SOS_PATH = "http://localhost:8080/52n-sos-webapp/service";	
 	
@@ -317,8 +317,8 @@ public class Common
 			InputStream in = new ByteArrayInputStream(imageInByte);
 			BufferedImage bImageFromConvert = ImageIO.read(in);
 
-			ImageIO.write(bImageFromConvert, "jpg", new File(
-								"c:/new-darksouls.jpg"));*/
+			ImageIO.write(bImageFromConvert, "file extension", new File(
+								"file_path"));*/
 
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
@@ -472,15 +472,11 @@ public class Common
 			/*if (json1.containsKey("exceptions") == true)
 			{				
 				JSONArray a = (JSONArray) json1.get("exceptions");			
-				System.out.println("exceptions");
 				JSONObject j = (JSONObject) a.get(0);
-				System.out.println(j.toString());
 				if (j.containsKey("locator"))
 				{					
-					System.out.println(j.get("locator").toString());					
 					if (j.get("locator").toString().equals("observedProperty"))
 					{
-						System.out.println("observedProperty is invalid");
 						result = 1;
 						UpdateSensorV2.send(json);
 					}					

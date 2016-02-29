@@ -10,11 +10,6 @@ import org.w3c.dom.NodeList;
 
 import br.agora.dsm.utils.Common;
 
-/**
- * 
- * @author sam
- *
- */
 public class RegisterSensorV2 {
 
 	/**
@@ -61,25 +56,19 @@ public class RegisterSensorV2 {
 			if (describeSensor.getResult() == 200)
 			{
 				
-				System.out.println("After Describe Sensor");
-				
 				JSONObject describeJSON = describeSensor.getRequest();
-				//System.out.println("describeJSON - "+describeJSON);
-				
+
 				JSONObject description;
 				
 				if (describeJSON.get("procedureDescription") instanceof JSONArray) 
 				{
 					JSONArray procedureDescription = (JSONArray) describeJSON.get("procedureDescription");
-					//System.out.println("procedureDescription - "+procedureDescription);
 					
 					description = (JSONObject) procedureDescription.get(0);
-					//System.out.println("description JSONObject - "+description);
 				}
 				else
 				{
 					description = (JSONObject) describeJSON.get("procedureDescription");
-					//System.out.println("description JSONObject- "+description);
 				}
 				
 				// reading SensorML
@@ -88,30 +77,21 @@ public class RegisterSensorV2 {
 				// converting string to xml
 				Document SensorML = Common.StringToDocument(strSensorML);
 				
-				//System.out.println("String to Document");
-				
 				// changing SensorML offering id
 				NodeList nodeList = SensorML.getElementsByTagName("swe:value");
-				//System.out.println("nodeList");
-				
 				
 				// check observed property
 				int i = 0;				
 				while (i < nodeList.getLength())
 				{
-					//System.out.println("nodeList - "+nodeList.item(i).getFirstChild().getNodeValue());
 					if (nodeList.item(i).getFirstChild().getNodeValue().equals(message.get("sensor_id").toString()+"_"+message.get("property").toString()))
 						existsProperty = 1;
 					i++;					
 				}
-				
-				//System.out.println("existsProperty = "+existsProperty);
 			}							
 			
 			if(describeSensor.getResult() != 200 || existsProperty == 0)
 			{
-				//System.out.println("After Describe Sensor");
-				
 				// reading SOS operation json
 				JSONParser parser = new JSONParser();	
 				
@@ -229,14 +209,11 @@ public class RegisterSensorV2 {
 					
 				}*/
 								
-				System.out.println("Insert Sensor - "+message.get("sensor_id"));
 				// feature of interest = "featureOfInterestType": "http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"
 				
 				// sending http post request using a json as parameter
 				Common.httpPost_JSON(jsonObject);
-				
-				System.out.println("After Insert Sensor");
-			
+		
 			}			
 		
 		} catch (Exception e) {
