@@ -1,6 +1,0 @@
-{
-  "request": "GetObservationById",
-  "service": "SOS",
-  "version": "2.0.0",
-  "observation": "http://www.52north.org/test/observation/1"
-}
