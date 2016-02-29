@@ -46,11 +46,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/**
- * 
- * @author sam
- *
- */
 
 public class Common 
 {
@@ -60,32 +55,18 @@ public class Common
 	 * 
 	 */
 	public final static String SERVER_PATH = "/home/suporte/AGORA-DSM/";
-	//public final static String SERVER_PATH = "/usr/share/tomcat7/webapps/AGORADSM/";
-	//public final static String SERVER_PATH = "E:\\Desenvolvimento\\Agora\\AgoraDSM\\docs\\";
-	//public final static String SERVER_PATH = "C:\\Users\\odair.zilda\\workspace\\AgoraDSM\\docs\\";
-	//public final static String SERVER_PATH = "/usr/share/tomcat7/webapps/AGORADSM/WEB-INF/conf/;
 	
-	//public final static String SOS_PATH = "http://www.agora.icmc.usp.br:8080/52nSOSv3/sos";
-	// public final static String SOS_PATH = "http://localhost:8080/52nSOSv3/sos";
 	public final static String SOS_PATH = "http://localhost:8080/52n-sos-webapp/service";	
-	//public final static String SOS_PATH = "http://www.agora.icmc.usp.br:8080/52n-sos-webapp/service";
-	//public final static String SOS_PATH = "http://localhost:8081/52nSOSv3/sos";
 	
 	public final static int SOS_52n_VERSION = 3;
 	
 	public final static String IMAGES_PATH = "/home/ftpuser/";
-	//public final static String IMAGES_PATH = "/home/ftpuser/uavs/";
-	//public final static String IMAGES_PATH = "E:\\Desenvolvimento\\Agora\\AgoraDSM\\docs\\";
-	//public final static String IMAGES_PATH = "C:\\Users\\odair.zilda\\Desktop\\CloudUSP\\";
 	
 	public final static String AGORADSMTrackingFile = "/home/suporte/AGORA-DSM/AGORA-DSM-performance-tracking.csv";
-    //public final static String AGORADSMTrackingFile = "C:\\Users\\odair.zilda\\Desktop\\AGORA-DSM-performance-tracking.csv";
-	
+    
 	public final static String uavsTrackingFile = "/home/ftpagora/AgoraDSM/uavs-performance-tracking.csv";
-	//public final static String uavsTrackingFile = "E:\\Desenvolvimento\\Agora\\AgoraDSM\\docs\\performance-tracking.csv";
 	
 	public final static String twitterTrackingFile = "/home/ftpagora/AgoraDSM/twitter-performance-tracking.csv";
-	//public final static String twitterTrackingFile = "E:\\Desenvolvimento\\Agora\\AgoraDSM\\docs\\twit-performance-tracking.csv";
 	
 	/**
 	 * 
@@ -117,7 +98,6 @@ public class Common
 	public static void updateAGORADSMPerformanceMeasurement (String line) {
 		
 		try {
-			//System.out.println("AGORADSMTrackingFile");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(AGORADSMTrackingFile, true));
 			
 			writer.write(line);
@@ -413,7 +393,6 @@ public class Common
 			URL jsonPage = new URL(urlPage);
 			HttpURLConnection connection = (HttpURLConnection) jsonPage.openConnection();
 						
-			//System.out.println("response code = "+connection.getResponseCode());
 			// not found - 400
 			// response ok - 200
 			if (connection.getResponseCode() == 200)
@@ -444,7 +423,6 @@ public class Common
 	public static SOS_request httpPost_JSON(JSONObject json)
 	{
 		
-		//System.out.println("init http Post");
 		PostMethod post = null;
 		int result = 0;
 		JSONObject request = null;
@@ -452,7 +430,6 @@ public class Common
 		
 		try {
 			
-			//System.out.println("SOS_PATH");
 			// prepare HTTP post
 			post = new PostMethod(SOS_PATH);
 			
@@ -461,36 +438,28 @@ public class Common
 			// determine its length. Request body buffering can be avoided when
 			// content length is explicitly specified
 			// post.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(input), input.length()));
-			//System.out.println("application_json");
 			post.setRequestEntity(new StringRequestEntity(json.toString(), "application/json", "UTF-8"));
 		
 			// specify content type and encoding. If content encoding is not
 			// explicitly specified, ISO-8859-1 is assumed
-			//System.out.println("content_type");
 			post.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 						
 			// get HTTP client
-			//System.out.println("httpclient");
 			HttpClient httpclient = new HttpClient();	
 			
 			// execute request
-			//System.out.println("result");
 			result = httpclient.executeMethod(post);
 						
-			//System.out.println("jsonparser");
 			JSONParser parser = new JSONParser();
-			//System.out.println("post_request"+post.getResponseBodyAsString());
 			request = (JSONObject) parser.parse(post.getResponseBodyAsString());
-			//System.out.println("request :"+request);
-			//System.in.read();
 			sosRequest = new SOS_request(request, result);
 			
 			// display status code
-			//System.out.println("Response status code: " +sosRequest.result);
+			System.out.println("Response status code: " +sosRequest.result);
 
 			// display response
-			//System.out.println("Response body: ");
-			//System.out.println(sosRequest.request.toString());
+			System.out.println("Response body: ");
+			System.out.println(sosRequest.request.toString());
 			
 			/*if (request.containsKey("observations") == true)
 			{
