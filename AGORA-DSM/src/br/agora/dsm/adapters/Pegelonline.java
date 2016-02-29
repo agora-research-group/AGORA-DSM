@@ -1,7 +1,5 @@
 package br.agora.dsm.adapters;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
@@ -39,16 +37,7 @@ public class Pegelonline extends HttpServlet
 		}.start();
 		
 	}
-	
-	/*public static void main(String[] args) throws Exception {
-		
-		System.out.println("init");
-		
-		//StationAdapter();
-	   	MeasurementAdapter();
-	}*/
-	
-	
+
 	@SuppressWarnings("unchecked")
 	public static void StationAdapter() 
 	{
@@ -58,7 +47,7 @@ public class Pegelonline extends HttpServlet
 			
 			try {				
 			
-				//Leitura do arquivo JSON em uma pagina web, correspondente ao Estado atual.
+				// Reading json ina web page
 				Object jsonStation = Common.URLjsonToObject("http://www.pegelonline.wsv.de/webservices/rest-api/v2/stations.json");
 				
 				if (jsonStation != null)
@@ -67,12 +56,11 @@ public class Pegelonline extends HttpServlet
 					
 					int count = 0;
 					
-					//Loop interno que percorre todos os pluviometros daquele Estado,
-					//efetuando o parsing dos dados.
+					//Intern loop for all the pluviomethers
 					while (count < array.size()-1) 
 					{
 						/* ****************** PERFORMANCE TRACKING ****************** */						
-						long startAGORADSM =  System.nanoTime();						
+						//long startAGORADSM =  System.nanoTime();						
 						
 						JSONObject jsonAdapter = new JSONObject();
 			
@@ -122,16 +110,10 @@ public class Pegelonline extends HttpServlet
 						
 						count++;
 						
-						//System.out.println("Pegelonline Station Register Sensor "+station.get("uuid").toString());
-						
-						//SensorWebInfrastructure.traditionalSensor(jsonAdapter);
-						
-						//System.out.println("Pegelonline Stations - "+jsonAdapter);						
 						RegisterSensorV2.send(jsonAdapter);
-						//System.out.println("After Pegelonline Stations");
 						
 						/* ****************** PERFORMANCE TRACKING ****************** */
-			            long stopAGORADSM = System.nanoTime();
+			            /*long stopAGORADSM = System.nanoTime();
 			            
 			            double x = Math.pow(10, -18);
 						double a = ((Long.parseLong(String.valueOf(stopAGORADSM)) - Long.parseLong(String.valueOf(startAGORADSM))) / x);
@@ -143,7 +125,7 @@ public class Pegelonline extends HttpServlet
 						
 						String line = "Pegelonline;" + date + ";" + startAGORADSM + ";" + stopAGORADSM + ";" + (stopAGORADSM-startAGORADSM) + ";" + a + ";Station;";    
 						
-						Common.updateAGORADSMPerformanceMeasurement(line);
+						Common.updateAGORADSMPerformanceMeasurement(line);*/
 					}
 					
 				}
@@ -187,7 +169,8 @@ public class Pegelonline extends HttpServlet
 						
 						try {
 							
-							long startAGORADSM =  System.nanoTime();
+							/* ****************** PERFORMANCE TRACKING ****************** */
+							//long startAGORADSM =  System.nanoTime();
 							
 							JSONObject sensor = stations.next();
 																	
@@ -195,9 +178,9 @@ public class Pegelonline extends HttpServlet
 							// define station name						
 							URL_name_station = sensor.get("shortname").toString();
 							URL_encoded = URL_name_station.replaceAll(" ", "%20");
-							URL_encoded = URL_encoded.replaceAll("Ü", "%C3%BC");
-							URL_encoded = URL_encoded.replaceAll("Ö", "%C3%B6");
-							URL_encoded = URL_encoded.replaceAll("Ä", "%C3%A4");
+							URL_encoded = URL_encoded.replaceAll("ï¿½", "%C3%BC");
+							URL_encoded = URL_encoded.replaceAll("ï¿½", "%C3%B6");
+							URL_encoded = URL_encoded.replaceAll("ï¿½", "%C3%A4");
 							URL_encoded = URL_encoded.replaceAll("-", "%2D");
 							
 							// transform URL json page into an jsonObject
@@ -237,17 +220,11 @@ public class Pegelonline extends HttpServlet
 								jsonAdapter.put("agency", "PEGELONLINE");
 								jsonAdapter.put("property", "water_level");
 								
-								//System.out.println("Pegelonline Measurement Publish Observation: "+sensor.get("uuid").toString());
-								
-								//SensorWebInfrastructure.traditionalSensor(jsonAdapter);				
-								//System.out.println("Pegelonline Measurements - "+jsonAdapter);
 								PublishObservationV2.send(jsonAdapter);
-								//System.out.println("After Pegelonline Measurements");
-								
 							}
 							
 							/* ****************** PERFORMANCE TRACKING ****************** */
-				            long stopAGORADSM = System.nanoTime();
+				            /*long stopAGORADSM = System.nanoTime();
 				            
 				            double x = Math.pow(10, -18);
 							double a = ((Long.parseLong(String.valueOf(stopAGORADSM)) - Long.parseLong(String.valueOf(startAGORADSM))) / x);
@@ -259,7 +236,7 @@ public class Pegelonline extends HttpServlet
 							
 							String line = "PEGELONLINE;" + date + ";" + startAGORADSM + ";" + stopAGORADSM + ";" + (stopAGORADSM-startAGORADSM) + ";" + a + ";measurements;";
 							
-							Common.updateAGORADSMPerformanceMeasurement(line);
+							Common.updateAGORADSMPerformanceMeasurement(line);*/
 						
 						} catch (Exception e) {
 							// TODO Auto-generated catch block

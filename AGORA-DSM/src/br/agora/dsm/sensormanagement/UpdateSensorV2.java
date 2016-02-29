@@ -2,7 +2,6 @@ package br.agora.dsm.sensormanagement;
 
 import java.io.FileReader;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.DOMException;
@@ -11,11 +10,7 @@ import org.w3c.dom.Node;
 
 import br.agora.dsm.utils.Common;
 
-/**
- * 
- * @author sam
- *
- */
+
 public class UpdateSensorV2 {
 
 	/**
@@ -54,30 +49,23 @@ public class UpdateSensorV2 {
 			
 			jsonObject1.put("procedure", message.get("sensor_id"));
 			
-			System.out.println("Describe Sensor - "+jsonObject1);
-			
 			Common.SOS_request describeSensor = Common.httpPost_JSON(jsonObject1);
 			
 			if(describeSensor.getResult() == 200)
 			{				
-				System.out.println("After Describe Sensor");
-				
 				// reading SOS operation json
 				JSONParser parser = new JSONParser();	
 				
 				obj = parser.parse(new FileReader(Common.SERVER_PATH+"updateSensor.json"));
 					 
 				JSONObject jsonObject = (JSONObject) obj;		
-				//System.out.println("json = "+jsonObject.toString());
-				
+
 				// reading SensorML
 				String strSensorML = jsonObject.get("procedureDescription").toString();
-				//System.out.println("SensorML 1 = "+strSensorML);
 				
 				// converting string to xml
 				Document SensorML = Common.StringToDocument(strSensorML);
 			
-				System.out.println("Update Sensor - sensor id");			
 				// setting sensor_id within SensorML
 				if (message.get("sensor_id") != null)
 				{
@@ -93,7 +81,6 @@ public class UpdateSensorV2 {
 					
 				}			
 	
-				System.out.println("Update Sensor - agency");
 				if (message.get("agency") != null)
 				{
 					agency = message.get("agency").toString();
@@ -103,7 +90,6 @@ public class UpdateSensorV2 {
 					node4.getFirstChild().setNodeValue(agency);
 				}
 				
-				System.out.println("Update Sensor - sensor name");
 				// setting sensor_name within SensorML
 				if (message.get("sensor_name") != null)
 				{
@@ -118,7 +104,6 @@ public class UpdateSensorV2 {
 					node2.getFirstChild().setNodeValue(sensor_name);
 				}		
 				
-				System.out.println("Update Sensor - sensor place name");
 				// setting sensor_place_name within SensorML
 				if (message.get("sensor_place_name") != null)
 				{
@@ -129,7 +114,6 @@ public class UpdateSensorV2 {
 					node5.getFirstChild().setNodeValue(sensor_place_name);
 				}
 				
-				System.out.println("Update Sensor - sensor coordinates");
 				// setting coordinates within SensorML
 				if (message.get("coordinates") != null)
 				{
@@ -173,32 +157,21 @@ public class UpdateSensorV2 {
 				// update procedure description
 				jsonObject.put("procedureDescription", strSensorML_v2);
 								
-				/*System.out.println("Update Sensor - property");
 				// update observable property
-				if (message.get("property") != null)
+				/*if (message.get("property") != null)
 				{
-					System.out.println("Update Sensor - observableProperty");
-					System.out.println(jsonObject.get("observableProperty"));
 					// cria um JSONArray e preenche com valores string 
 					JSONArray observableProperty = (JSONArray) jsonObject.get("observableProperty");
 					
-					
-					System.out.println(observableProperty.toString());
-					System.out.println("Update Sensor - add observableProperty");
-					System.out.println(message.get("property").toString());
 					observableProperty.add(message.get("property").toString());
 					
-					System.out.println("Update Sensor - put observableProperty");										
 					jsonObject.put("observableProperty", observableProperty);
 					
 				}*/
 				
-				System.out.println("Update Sensor - "+jsonObject);				
-								
 				// sending http post request using a json as parameter
 				Common.httpPost_JSON(jsonObject);
 				
-				System.out.println("After Update Sensor");
 			}
 		
 		} catch (Exception e) {

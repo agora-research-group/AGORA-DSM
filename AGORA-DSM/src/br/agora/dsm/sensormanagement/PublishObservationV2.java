@@ -7,15 +7,9 @@ import org.json.simple.parser.JSONParser;
 
 import br.agora.dsm.utils.Common;
 
-/**
- * 
- * @author sam
- *
- */
+
 public class PublishObservationV2 {
 
-	//public final static String SOS_PATH = "http://localhost:8080/52n-sos-webapp/service";
-	
 	/**
 	 * Constructor
 	 */
@@ -52,16 +46,10 @@ public class PublishObservationV2 {
 			
 			jsonObject2.put("observation", message.get("sensor_id").toString()+"_"+message.get("timestamp").toString()+"_"+message.get("property").toString());		
 			
-			//System.out.println("Get Observation - "+message.get("sensor_id").toString()+"_"+message.get("timestamp").toString()+"_"+message.get("property").toString());
-			
 			Common.SOS_request getObservation = Common.httpPost_JSON(jsonObject2);
 			
-			System.out.println("Get Observation Result - "+message.get("sensor_id").toString()+"_"+message.get("timestamp").toString()+"_"+message.get("property").toString());
-						
 			if(getObservation.getResult() != 200 || getObservation.getRequest().get("observations") != null)
 			{
-				
-				System.out.println("After Get Observation");
 				
 				// reading SOS operation json
 				JSONParser parser = new JSONParser();	
@@ -109,11 +97,8 @@ public class PublishObservationV2 {
 					if (message.get("type").equals("text"))
 					{
 						observation.put("type", "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_TextObservation");
-						//System.out.println("convertion 1");
 						String binaryChain = Common.ImageToBin(Common.IMAGES_PATH+message.get("value").toString());
-						//System.out.println("convertion 2");
 						observation.put("result", binaryChain);
-						//System.out.println(binaryChain);
 					}	
 				
 				JSONObject identifier = (JSONObject) observation.get("identifier");
@@ -144,11 +129,7 @@ public class PublishObservationV2 {
 					
 				}				
 				
-				System.out.println("Insert Observation - "+message.get("sensor_id").toString()+"_"+message.get("timestamp").toString()+"_"+message.get("property").toString());
-				
 				Common.SOS_request insertObservation = Common.httpPost_JSON(jsonObject);
-				
-				System.out.println("After Insert Observation");
 				
 				// sending http post request using a json as parameter				
 				/*if (insertObservation.getResult() == 200)					

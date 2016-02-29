@@ -1,7 +1,5 @@
 package br.agora.dsm.adapters;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -28,7 +26,6 @@ public class Cemaden extends HttpServlet {
 			    public void run() 
 			    {
 			    	try {
-			    		//System.out.println("Cemaden");
 						CemadenAdapter();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -48,13 +45,11 @@ public class Cemaden extends HttpServlet {
 				
 				StringTokenizer siglasEstados = new StringTokenizer("AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO");
 	
-				//StringTokenizer siglasEstados = new StringTokenizer("SP");
-				
-				//Loop principal que percorre todos as siglas dos estados brasileiros.
+				// Main loop principal for all the Brazilian states
 				while(siglasEstados.hasMoreTokens()) 
 				{
 		
-					//Leitura do arquivo JSON em uma pagina web, correspondente ao Estado atual.
+					// Reading json in a web page
 					JSONObject jsonPluviometer = (JSONObject) Common.URLjsonToObject("http://150.163.255.240/CEMADEN/resources/parceiros/" + siglasEstados.nextToken() + "/1");
 										
 					if (jsonPluviometer != null)
@@ -63,12 +58,11 @@ public class Cemaden extends HttpServlet {
 						
 						Iterator <JSONObject> all_measurements = array.listIterator();		
 						
-						//Loop interno que percorre todos os pluviometros daquele Estado,
-						//efetuando o parsing dos dados.
+						// Intern loop for all the pluviomethers
 						while(all_measurements.hasNext())
 				        {
 							/* ****************** PERFORMANCE TRACKING ****************** */
-							long startAGORADSM =  System.nanoTime();
+							//long startAGORADSM =  System.nanoTime();
 							
 							JSONObject pluviometer = all_measurements.next();
 							
@@ -101,8 +95,7 @@ public class Cemaden extends HttpServlet {
 								jsonAdapter.put("value", pluviometer.get("chuva"));
 							
 							/*if(pluviometer.get("nivel") != null)
-								jsonAdapter.put("level", pluviometer.get("nivel"));
-							System.out.println("nivel");*/
+								jsonAdapter.put("level", pluviometer.get("nivel"));*/
 							
 							if(pluviometer.get("dataHora") != null)
 							{					
@@ -119,16 +112,10 @@ public class Cemaden extends HttpServlet {
 							
 							jsonAdapter.put("agency", "CEMADEN");
 							
-							//System.out.println("Cemaden Publish Observation: "+pluviometer.get("codestacao").toString());
-														
-							//SensorWebInfrastructure.traditionalSensor(jsonAdapter);
-							
-							//System.out.println("Cemaden Measurements - "+jsonAdapter);			
 							PublishObservationV2.send(jsonAdapter);
-							//System.out.println("Cemaden Measurements");			
 							
 							/* ****************** PERFORMANCE TRACKING ****************** */
-				            long stopAGORADSM = System.nanoTime();
+				            /*long stopAGORADSM = System.nanoTime();
 				            
 				            double x = Math.pow(10, -18);
 							double a = ((Long.parseLong(String.valueOf(stopAGORADSM)) - Long.parseLong(String.valueOf(startAGORADSM))) / x);
@@ -140,7 +127,7 @@ public class Cemaden extends HttpServlet {
 							
 							String line = "CEMADEN;" + date + ";" + startAGORADSM + ";" + stopAGORADSM + ";" + (stopAGORADSM-startAGORADSM) + ";" + a + ";CEMADEN;";    
 							
-							Common.updateAGORADSMPerformanceMeasurement(line);
+							Common.updateAGORADSMPerformanceMeasurement(line);*/
 							
 				        }
 					

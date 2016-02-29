@@ -9,10 +9,6 @@ import br.agora.dsm.sensormanagement.PublishObservationV2;
 import br.agora.dsm.sensormanagement.RegisterSensorV2;
 import br.agora.dsm.sensormanagement.UpdateSensorV2;
 
-/**
- * @author 
- *
- */
 public class SensorWebInfrastructure extends HttpServlet {
 	
 	/**
@@ -26,10 +22,7 @@ public class SensorWebInfrastructure extends HttpServlet {
 	 * @return
 	 */
 	public static String traditionalSensor(String request) {
-				
-		//System.out.println("traditionalSensor");
-		//System.out.println(request);
-				
+						
 		try {
 			
 			
@@ -54,16 +47,4 @@ public class SensorWebInfrastructure extends HttpServlet {
 		return null;
 	}
 	
-	/*public static void main(String[] args) {
-		
-		System.out.println("init");
-		
-		//String teste = "{\"timestamp\":\"2015-12-06T18:45:15+00:00\",\"message\":\"publishObservation\",\"sensor_name\":\"foi3\",\"value\":\"inundacao.jpeg\",\"property\":\"photo\",\"sensor_id\":\"sensor-13\",\"type\":\"text\",\"coordinates\":{\"longitude\":-47.899989,\"latitude\":-22.000368}}";
-				
-		String teste = "{\"timestamp\":\"2015-12-07T18:45:15+00:00\",\"message\":\"publishObservation\",\"unit\":\"cm\",\"sensor_name\":\"foi3\",\"value\":30,\"property\":\"nivel_agua\",\"sensor_id\":\"sensor-13\",\"type\":\"numeric\",\"coordinates\":{\"longitude\":-47.899989,\"latitude\":-22.000368}}";
-		
-		traditionalSensor(teste);
-		
-	}*/
-
 }
